@@ -1,3 +1,7 @@
 // 1. Constantes
-
-const SMMLV_2026 = 1750905 ; // Salario minimo 
+const salarioMinimo = 1750905;
+const salarioMinimoIntegral = 22761765;
+const auxilioTransporte = 249095;
+const porcentajePension = 0.04;
+const porcentajeSalud = 0.04;
+const porcentajeFondoSolidaridad = 0.01;
