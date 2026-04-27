@@ -6,6 +6,8 @@ const porcentajePension = 0.04;
 const porcentajeSalud = 0.04;
 const porcentajeFondoSolidaridad = 0.01;
 const riesgos = [0.00522, 0.01044, 0.02436, 0.04350, 0.06960];
+
+
 //CONEXIÓN CON EL DOM//
 
 const formDatosGenerales = document.getElementById("datosGenerales");
@@ -23,15 +25,22 @@ let nivelRiesgo = "1";
 
 //VALIDACION DE DATOS//
 function validar(edadUsuario) {
-    if (edadUsuario < 18) {
-        stop(); // Requiere que stop() esté definida en otro contexto
-    } else if (edadUsuario >= 18 && edadUsuario < 25) {
-        esUsuarioBenerficiarioPorCotizante();
-    } else if (edadUsuario >= 60) {
-        pension();
-    } else {
-        salarioCalculo(); // Corregido el typo "salaraioCalculo"
-    }
+
+    if (edadUsuario < 18) 
+
+        {alert("eres menor de edad no es posible continuar"); 
+        return; } 
+
+    else if (edadUsuario >= 18 && edadUsuario < 25) 
+
+        {alert("usuario beneficiario por cotizante");} 
+
+    else if (edadUsuario >= 60) 
+
+        {alert("solo se calculara el pago de la pension");} 
+        
+    else 
+        {salarioCalculo(); }
 }
 
 // FUNCIONES UTILITARIAS//
@@ -45,7 +54,7 @@ function calcularPorcentaje(base, porcentaje) {
 
 function calcularNomina() {
     let ibc = (salario + comisiones + totalHorasExtras) * 0.7;
-    let calculoAuxilioTransporte = salario < (2 * salarioMinimo) ? auxilioTransporte : 0;
+    let calculoAuxilioTransporte = salario <= (2 * salarioMinimo) ? auxilioTransporte : 0;
     let calculoSalud = ibc * porcentajeSalud;
     let calculoFondoSolidaridad = ibc * porcentajeFondoSolidaridad;
     let calculoPension = ibc >= (4 * salarioMinimo) 
