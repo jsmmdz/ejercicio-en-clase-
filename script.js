@@ -5,12 +5,29 @@ const auxilioTransporte = 249095;
 const porcentajePension = 0.04;
 const porcentajeSalud = 0.04;
 const porcentajeFondoSolidaridad = 0.01;
-const riesgos = [0.00522, 0.01044, 0.02436, 0.04350, 0.06960];
-
-
+const Tarifas_ARL = { 
+    1: 0.00522, // Riesgo I (Mínimo)
+    2: 0.01044, // Riesgo II (Bajo)
+    3: 0.02436, // Riesgo III (Medio)
+    4: 0.04350, // Riesgo IV (Alto)
+    5: 0.06960  // Riesgo V (Máximo)
+};
 //CONEXIÓN CON EL DOM//
 
+ // Formulario principal
 const formDatosGenerales = document.getElementById("datosGenerales");
+
+ // Inputs de Información Básica
+const inputNombre = document.getElementById("nombreCompleto");
+const inputEdad = document.getElementById("edad");
+const selectTipoDoc = document.getElementById("tipoDocumento");
+const inputNumeroDoc = document.getElementById("numeroDocumento");
+
+ // Inputs de Información Salarial
+const inputSalario = document.getElementById("salario");
+const inputComisiones = document.getElementById("comisiones");
+const inputHorasExtras = document.getElementById("horasExtras");
+const selectNivelRiesgo = document.getElementById("nivelRiesgo");
 
 // VARIABLES PARA LOS DATOS DEL USUARIO//
 
