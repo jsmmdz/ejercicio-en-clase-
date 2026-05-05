@@ -1,11 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simulador de Prestaciones Laborales</title>
+   
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="script.js"></script>
+
+    <h1>Simulador de Nómina y Prestaciones</h1>
+
+    <form id="datosGenerales">
+        
+        <!-- SECCIÓN 1: Información Básica -->
+        <fieldset>
+            <legend>Información Básica</legend>
+
+            <label for="nombreCompleto">Nombre Completo:</label>
+            <input type="text" id="nombreCompleto" required>
+
+            <label for="edad">Edad (en años):</label>
+            <input type="number" id="edad" min="1" required>
+
+            <label for="tipoDocumento">Tipo de Documento:</label>
+            <select id="tipoDocumento" required>
+                <option value="">Seleccione una opción...</option>
+                <option value="RC">CC</option> 
+                <option value="TI">TI</option> 
+                <option value="CC">CE</option>
+                <option value="CE">RC</option> 
+                <option value="PP">PEP</option> 
+
+            <label for="numeroDocumento">Número de documento (sin puntos ni comas):</label>
+            <!-- Usamos type="number" para evitar que se ingresen puntos o letras -->
+            <input type="number" id="numeroDocumento" required> 
+
+        </fieldset>
+
+        <!-- SECCIÓN 2: Información Salarial -->
+        <fieldset>
+            <legend>Información Salarial</legend>
+
+            <label for="salario">Salario (en COP, sin puntos ni comas):</label>
+            <input type="number" id="salario" min="0" required> 
+
+            <label for="comisiones">Comisiones (en COP):</label>
+            <input type="number" id="comisiones" min="0" value="0" required> 
+
+            <label for="horasExtras">Total de horas extra (en COP):</label>
+            <input type="number" id="horasExtras" min="0" value="0" required> 
+
+            <label for="nivelRiesgo">Clasificación Nivel de Riesgo ARL:</label>
+            <select id="nivelRiesgo" required> 
+                <option value="1">Riesgo I (Mínimo)</option>
+                <option value="2">Riesgo II (Bajo)</option>
+                <option value="3">Riesgo III (Medio)</option>
+                <option value="4">Riesgo IV (Alto)</option>
+                <option value="5">Riesgo V (Máximo)</option>
+            </select>
+
+        </fieldset>
+
+        <button type="submit" id="btnCalcular">Calcular Nómina</button>
+
+    </form>
+
+    <!-- Aquí se mostrarán los resultados más adelante -->
+    <div id="resultados"></div>
+
+    <!-- Llamado al archivo JavaScript, tal como lo pide la plantilla -->
+    <script src="script.js"></script> <!-- -->
+
 </body>
 </html>
