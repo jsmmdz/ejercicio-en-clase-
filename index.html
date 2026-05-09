@@ -4,73 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Prestaciones Laborales</title>
-   
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Simulador de Nómina y Prestaciones</h1>
+    <div class="calculator-container">
+        <h1 class="main-title">Simulador de Nómina y Prestaciones</h1>
 
-    <form id="datosGenerales">
-        
-        <!-- SECCIÓN 1: Información Básica -->
-        <fieldset>
-            <legend>Información Básica</legend>
+        <form id="datosGenerales" class="calc-form">
+            
+            <!-- SECCIÓN 1: Información Básica -->
+            <fieldset class="form-section">
+                <legend class="section-title">Información Básica</legend>
 
-            <label for="nombreCompleto">Nombre Completo:</label>
-            <input type="text" id="nombreCompleto" required>
+                <label for="nombreCompleto" class="form-label">Nombre Completo:</label>
+                <input type="text" id="nombreCompleto" class="form-input" required>
 
-            <label for="edad">Edad (en años):</label>
-            <input type="number" id="edad" min="1" required>
+                <label for="edad" class="form-label">Edad (en años):</label>
+                <input type="number" id="edad" class="form-input" min="1" required>
 
-            <label for="tipoDocumento">Tipo de Documento:</label>
-            <select id="tipoDocumento" required>
-                <option value="">Seleccione una opción...</option>
-                <option value="RC">CC</option> 
-                <option value="TI">TI</option> 
-                <option value="CC">CE</option>
-                <option value="CE">RC</option> 
-                <option value="PP">PEP</option> 
+                <label for="tipoDocumento" class="form-label">Tipo de Documento:</label>
+                <select id="tipoDocumento" class="form-input" required>
+                    <option value="">Seleccione una opción...</option>
+                    <option value="RC">CC</option> 
+                    <option value="TI">TI</option> 
+                    <option value="CC">CE</option>
+                    <option value="CE">RC</option> 
+                    <option value="PP">PEP</option> 
+                </select> <!-- ¡Faltaba cerrar esta etiqueta! -->
 
-            <label for="numeroDocumento">Número de documento (sin puntos ni comas):</label>
-            <!-- Usamos type="number" para evitar que se ingresen puntos o letras -->
-            <input type="number" id="numeroDocumento" required> 
+                <label for="numeroDocumento" class="form-label">Número de documento (sin puntos ni comas):</label>
+                <input type="number" id="numeroDocumento" class="form-input" required> 
 
-        </fieldset>
+            </fieldset>
 
-        <!-- SECCIÓN 2: Información Salarial -->
-        <fieldset>
-            <legend>Información Salarial</legend>
+            <!-- SECCIÓN 2: Información Salarial -->
+            <fieldset class="form-section">
+                <legend class="section-title">Información Salarial</legend>
 
-            <label for="salario">Salario (en COP, sin puntos ni comas):</label>
-            <input type="number" id="salario" min="0" required> 
+                <label for="salario" class="form-label">Salario (en COP, sin puntos ni comas):</label>
+                <input type="number" id="salario" class="form-input" min="0" required> 
 
-            <label for="comisiones">Comisiones (en COP):</label>
-            <input type="number" id="comisiones" min="0" value="0" required> 
+                <label for="comisiones" class="form-label">Comisiones (en COP):</label>
+                <input type="number" id="comisiones" class="form-input" min="0" value="0" required> 
 
-            <label for="horasExtras">Total de horas extra (en COP):</label>
-            <input type="number" id="horasExtras" min="0" value="0" required> 
+                <label for="horasExtras" class="form-label">Total de horas extra (en COP):</label>
+                <input type="number" id="horasExtras" class="form-input" min="0" value="0" required> 
 
-            <label for="nivelRiesgo">Clasificación Nivel de Riesgo ARL:</label>
-            <select id="nivelRiesgo" required> 
-                <option value="1">Riesgo I (Mínimo)</option>
-                <option value="2">Riesgo II (Bajo)</option>
-                <option value="3">Riesgo III (Medio)</option>
-                <option value="4">Riesgo IV (Alto)</option>
-                <option value="5">Riesgo V (Máximo)</option>
-            </select>
+                <label for="nivelRiesgo" class="form-label">Clasificación Nivel de Riesgo ARL:</label>
+                <select id="nivelRiesgo" class="form-input" required> 
+                    <option value="1">Riesgo I (Mínimo)</option>
+                    <option value="2">Riesgo II (Bajo)</option>
+                    <option value="3">Riesgo III (Medio)</option>
+                    <option value="4">Riesgo IV (Alto)</option>
+                    <option value="5">Riesgo V (Máximo)</option>
+                </select>
 
-        </fieldset>
+            </fieldset>
 
-        <button type="submit" id="btnCalcular">Calcular Nómina</button>
+            <button type="submit" id="btnCalcular" class="btn-primary">Calcular Nómina</button>
 
-    </form>
+        </form>
 
-    <!-- Aquí se mostrarán los resultados más adelante -->
-    <div id="resultados"></div>
+        <!-- Aquí se mostrarán los resultados más adelante -->
+        <div id="resultados" class="results-container"></div>
+    </div>
 
-    <!-- Llamado al archivo JavaScript, tal como lo pide la plantilla -->
-    <script src="script.js"></script> <!-- -->
+    <!-- Llamado al archivo JavaScript -->
+    <script src="script.js"></script>
 
 </body>
 </html>
