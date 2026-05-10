@@ -1,3 +1,6 @@
+//Nombre: [Junior Smith Mejia Mendez] - Documento: [1014477792]//
+
+
 // Constantes//
 const salarioMinimo = 1750905;
 const salarioMinimoIntegral = 22761765;
@@ -71,22 +74,37 @@ function calcularPorcentaje(base, porcentaje) {
 // LÓGICA DE NEGOCIO Y CÁLCULOS//
 
 function calcularNomina() {
-    let ibc = (salario + comisiones + totalHorasExtras) * 0.7;
+    let ingresosFormula = salario + comisiones + totalHorasExtras;
+    let ibc = ingresosFormula * 0.7;
     let calculoAuxilioTransporte = salario <= (2 * salarioMinimo) ? auxilioTransporte : 0;
-    let calculoSalud = ibc * porcentajeSalud;
-    let calculoFondoSolidaridad = ibc * porcentajeFondoSolidaridad;
-    let calculoPension = ibc >= (4 * salarioMinimo) 
-        ? (ibc * porcentajePension) + calculoFondoSolidaridad 
-        : ibc * porcentajePension;
-    let calculoArl = Tarifas_ARL[nivelRiesgo] ? ibc * Tarifas_ARL[nivelRiesgo] : 0;
+    
+    let calculoSalud = 0, calculoPension = 0, calculoFondoSolidaridad = 0, calculoArl = 0, retefuente = 0;
+
+    if (edad >= 60) {
+        calculoPension = ibc * porcentajePension;
+    } 
+    else if (salario >= (2 * salarioMinimo)) {
+        calculoSalud = ibc * porcentajeSalud;
+        calculoFondoSolidaridad = (ibc >= (4 * salarioMinimo)) ? ibc * porcentajeFondoSolidaridad : 0;
+        calculoPension = (ibc * porcentajePension) + calculoFondoSolidaridad;
+        calculoArl = Tarifas_ARL[nivelRiesgo] ? ibc * Tarifas_ARL[nivelRiesgo] : 0;
+
+        let ingresoUVT = (ingresosFormula - calculoSalud - calculoPension) / UVT;
+        if (ingresoUVT > 95 && ingresoUVT <= 150) retefuente = (ingresoUVT - 95) * 0.19 * UVT;
+        else if (ingresoUVT > 150 && ingresoUVT <= 360) retefuente = ((ingresoUVT - 150) * 0.28 + 10) * UVT;
+        else if (ingresoUVT > 360 && ingresoUVT <= 640) retefuente = ((ingresoUVT - 360) * 0.33 + 69) * UVT;
+        else if (ingresoUVT > 640 && ingresoUVT <= 945) retefuente = ((ingresoUVT - 640) * 0.35 + 162) * UVT;
+        else if (ingresoUVT > 945 && ingresoUVT <= 2300) retefuente = ((ingresoUVT - 945) * 0.37 + 268) * UVT;
+        else if (ingresoUVT > 2300) retefuente = ((ingresoUVT - 2300) * 0.39 + 770) * UVT;
+    }
+
+    let totalIngresos = ingresosFormula + calculoAuxilioTransporte;
+    let totalDeducciones = calculoSalud + calculoPension + calculoFondoSolidaridad + calculoArl + retefuente;
 
     return {
-        ibc,
-        calculoAuxilioTransporte,
-        calculoSalud,
-        calculoFondoSolidaridad,
-        calculoPension,
-        calculoArl
+        salarioBase: salario, ibc, totalIngresos, calculoSalud, calculoPension,
+        calculoFondoSolidaridad, calculoArl, retefuente, totalDeducciones,
+        totalPagar: totalIngresos - totalDeducciones
     };
 }
 
@@ -122,14 +140,25 @@ function salarioCalculo() {
 
     divResultados.innerHTML = `
         <h2 class="section-title">Resultados de la Simulación</h2>
-        <p><strong>Colaborador:</strong> ${nombre}</p>
-        <p><strong>Documento:</strong> ${tipoDocumento} ${numeroDocumento}</p>
+        <p><strong>Colaborador:</strong> ${nombre} - ${tipoDocumento} ${numeroDocumento}</p>
+        <br>
+        <p><strong>Salario:</strong> ${formatoMoneda.format(resultadosCalculo.salarioBase)}</p>
         <p><strong>Ingreso Base de Cotización (IBC):</strong> ${formatoMoneda.format(resultadosCalculo.ibc)}</p>
-        <p><strong>Auxilio de Transporte:</strong> ${formatoMoneda.format(resultadosCalculo.calculoAuxilioTransporte)}</p>
-        <p><strong>Deducción Salud:</strong> ${formatoMoneda.format(resultadosCalculo.calculoSalud)}</p>
-        <p><strong>Deducción Pensión:</strong> ${formatoMoneda.format(resultadosCalculo.calculoPension)}</p>
-        <p><strong>Fondo de Solidaridad:</strong> ${formatoMoneda.format(resultadosCalculo.calculoFondoSolidaridad)}</p>
-        <p><strong>Cotización ARL (Pagado por empleador):</strong> ${formatoMoneda.format(resultadosCalculo.calculoArl)}</p>
+        <br>
+        <p><strong>Fórmula (Salario + Auxilio de transporte + Comisiones + Horas extra):</strong> ${formatoMoneda.format(resultadosCalculo.totalIngresos)}</p>
+        <p><strong>Deducibles (Salud + Pensión + Fondo + ARL + Retefuente):</strong> ${formatoMoneda.format(resultadosCalculo.totalDeducciones)}</p>
+        
+        <ul style="list-style: none; padding-left: 20px; margin-bottom: 15px; font-size: 15px;">
+            <li>- Salud: ${formatoMoneda.format(resultadosCalculo.calculoSalud)}</li>
+            <li>- Pensión: ${formatoMoneda.format(resultadosCalculo.calculoPension)}</li>
+            <li>- Fondo de Solidaridad Pensional: ${formatoMoneda.format(resultadosCalculo.calculoFondoSolidaridad)}</li>
+            <li>- ARL: ${formatoMoneda.format(resultadosCalculo.calculoArl)}</li>
+            <li>- Retención en la Fuente: ${formatoMoneda.format(resultadosCalculo.retefuente)}</li>
+        </ul>
+
+        <h3 style="color: var(--color-primario); border-top: 2px solid var(--color-borde); padding-top: 15px; margin-top: 10px;">
+            Total (Ingresos - Deducciones): ${formatoMoneda.format(resultadosCalculo.totalPagar)}
+        </h3>
     `;
 
     divResultados.classList.add("mostrar-resultados");
