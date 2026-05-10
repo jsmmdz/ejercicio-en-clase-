@@ -1,3 +1,15 @@
+:root {
+    --color-blanco: #ffffff;
+    --color-fondo: #f4f6f9;
+    --color-oscuro: #2d3748;
+    --color-gris: #4a5568;
+    --color-borde: #cbd5e0;
+    --color-primario: #0066ff;
+    --color-primario-hover: #0052cc;
+    --sombra-suave: rgba(0, 0, 0, 0.05);
+    --sombra-foco: rgba(0, 102, 255, 0.2);
+}
+
 /* Reset básico y tipografía  */
 * {
     box-sizing: border-box;
@@ -7,8 +19,8 @@
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f4f6f9; /* Fondo gris muy claro, estilo Talent.com */
-    color: #333333;
+    background-color: var(--color-fondo); /* Fondo gris muy claro, estilo Talent.com */
+    color: var(--color-oscuro);
     line-height: 1.6;
     padding: 40px 20px;
 }
@@ -23,16 +35,16 @@ body {
     text-align: center;
     font-size: 28px;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--color-oscuro);
     margin-bottom: 30px;
 }
 
 /*Estilos del Formulario */
 .calc-form {
-    background-color: #ffffff;
+    background-color: var(--color-blanco);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 4px 15px var(--sombra-suave); 
 }
 
 /* Secciones  */
@@ -44,8 +56,8 @@ body {
 .section-title {
     font-size: 20px;
     font-weight: 600;
-    color: #2b6cb0; 
-    border-bottom: 2px solid #edf2f7;
+    color: var(--color-primario); 
+    border-bottom: 2px solid var(--color-borde);
     width: 100%;
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -56,7 +68,7 @@ body {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #4a5568;
+    color: var(--color-gris);
     margin-bottom: 8px;
 }
 
@@ -64,27 +76,26 @@ body {
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 20px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--color-borde);
     border-radius: 8px;
     font-size: 16px;
-    color: #2d3748;
-    background-color: #fff;
+    color: var(--color-oscuro);
+    background-color: var(--color-blanco);
     transition: all 0.3s ease;
 }
 
-
 .form-input:focus {
     outline: none;
-    border-color: #3182ce;
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px var(--sombra-foco);
 }
 
 /* Botón Principal  */
 .btn-primary {
     display: block;
     width: 100%;
-    background-color: #0066ff;
-    color: #ffffff;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
     font-size: 18px;
     font-weight: bold;
     padding: 15px 20px;
@@ -96,7 +107,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #0052cc;
+    background-color: var(--color-primario-hover);
 }
 
 .btn-primary:active {
@@ -110,24 +121,23 @@ body {
     padding: 20px;
     border-radius: 12px;
     display: none; 
-    background-color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
-    border-top: 4px solid #3182ce; 
+    background-color: var(--color-blanco);
+    box-shadow: 0 4px 15px var(--sombra-suave); 
+    border-top: 4px solid var(--color-primario); 
 }
 
 .results-container.mostrar-resultados {
     display: block; 
-    animation: aparecerDeslizando 0.6s ease-out forwards; 
 }
 
 .results-container p {
     font-size: 16px;
     margin-bottom: 12px;
-    color: #4a5568;
-    border-bottom: 1px dashed #edf2f7;
+    color: var(--color-gris);
+    border-bottom: 1px dashed var(--color-borde);
     padding-bottom: 5px;
 }
 
 .results-container p strong {
-    color: #2b6cb0;
+    color: var(--color-primario);
 }
