@@ -12,10 +12,12 @@ const Tarifas_ARL = {
     4: 0.04350, // Riesgo IV (Alto)
     5: 0.06960  // Riesgo V (Máximo)
 };
+
 //CONEXIÓN CON EL DOM//
 
  // Formulario principal
 const formDatosGenerales = document.getElementById("datosGenerales");
+const divResultados = document.getElementById("resultados"); // NUEVO
 
  // Inputs de Información Básica
 const inputNombre = document.getElementById("nombreCompleto");
@@ -77,11 +79,7 @@ function calcularNomina() {
     let calculoPension = ibc >= (4 * salarioMinimo) 
         ? (ibc * porcentajePension) + calculoFondoSolidaridad 
         : ibc * porcentajePension;
-    
-    //Se asegura de convertir el nivel de riesgo a entero y restar 1 para coincidir con el índice del array
-    let indiceRiesgo = parseInt(nivelRiesgo) - 1;
-    let calculoArl = indiceRiesgo >= 0 ? ibc * riesgos[indiceRiesgo] : 0;
-
+    let calculoArl = Tarifas_ARL[nivelRiesgo] ? ibc * Tarifas_ARL[nivelRiesgo] : 0;
 
     return {
         ibc,
@@ -91,4 +89,47 @@ function calcularNomina() {
         calculoPension,
         calculoArl
     };
+}
+
+
+// LÓGICA DE RESULTADOS // 
+
+formDatosGenerales.addEventListener("submit", function(evento) {
+    evento.preventDefault(); 
+
+    nombre = inputNombre.value;
+    edad = parseInt(inputEdad.value);
+    tipoDocumento = selectTipoDoc.value;
+    numeroDocumento = inputNumeroDoc.value;
+    
+    salario = parseFloat(inputSalario.value) || 0;
+    comisiones = parseFloat(inputComisiones.value) || 0;
+    totalHorasExtras = parseFloat(inputHorasExtras.value) || 0;
+    nivelRiesgo = selectNivelRiesgo.value;
+
+    validar(edad);
+});
+
+function salarioCalculo() {
+    const resultadosCalculo = calcularNomina();
+
+    const formatoMoneda = new Intl.NumberFormat('es-CO', { 
+        style: 'currency', 
+        currency: 'COP',
+        maximumFractionDigits: 0 
+    });
+
+    divResultados.innerHTML = `
+        <h2 class="section-title">Resultados de la Simulación</h2>
+        <p><strong>Colaborador:</strong> ${nombre}</p>
+        <p><strong>Documento:</strong> ${tipoDocumento} ${numeroDocumento}</p>
+        <p><strong>Ingreso Base de Cotización (IBC):</strong> ${formatoMoneda.format(resultadosCalculo.ibc)}</p>
+        <p><strong>Auxilio de Transporte:</strong> ${formatoMoneda.format(resultadosCalculo.calculoAuxilioTransporte)}</p>
+        <p><strong>Deducción Salud:</strong> ${formatoMoneda.format(resultadosCalculo.calculoSalud)}</p>
+        <p><strong>Deducción Pensión:</strong> ${formatoMoneda.format(resultadosCalculo.calculoPension)}</p>
+        <p><strong>Fondo de Solidaridad:</strong> ${formatoMoneda.format(resultadosCalculo.calculoFondoSolidaridad)}</p>
+        <p><strong>Cotización ARL (Pagado por empleador):</strong> ${formatoMoneda.format(resultadosCalculo.calculoArl)}</p>
+    `;
+
+    divResultados.classList.add("mostrar-resultados");
 }
