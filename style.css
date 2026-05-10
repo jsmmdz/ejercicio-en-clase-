@@ -1,4 +1,4 @@
-/*  Reset básico y tipografía  */
+/* Reset básico y tipografía  */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -35,7 +35,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
 }
 
-/*  Secciones  */
+/* Secciones  */
 .form-section {
     border: none;
     margin-bottom: 30px;
@@ -103,9 +103,42 @@ body {
     transform: translateY(2px);
 }
 
-/* Contenedor de Resultados   */
+/* ESTILOS DE RESULTADOS Y ANIMACIONES*/
+
+@keyframes aparecerDeslizando {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .results-container {
     margin-top: 30px;
     padding: 20px;
     border-radius: 12px;
+    display: none; 
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    border-top: 4px solid #3182ce; 
+}
+
+.results-container.mostrar-resultados {
+    display: block; 
+    animation: aparecerDeslizando 0.6s ease-out forwards; 
+}
+
+.results-container p {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #4a5568;
+    border-bottom: 1px dashed #edf2f7;
+    padding-bottom: 5px;
+}
+
+.results-container p strong {
+    color: #2b6cb0;
 }
