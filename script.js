@@ -5,6 +5,7 @@ const auxilioTransporte = 249095;
 const porcentajePension = 0.04;
 const porcentajeSalud = 0.04;
 const porcentajeFondoSolidaridad = 0.01;
+const UVT = 52370;
 const Tarifas_ARL = { 
     1: 0.00522, // Riesgo I (Mínimo)
     2: 0.01044, // Riesgo II (Bajo)
@@ -44,22 +45,20 @@ let nivelRiesgo = "1";
 
 //VALIDACION DE DATOS//
 function validar(edadUsuario) {
-
-    if (edadUsuario < 18) 
-
-        {alert("eres menor de edad no es posible continuar"); 
-        return; } 
-
+    if (edadUsuario < 18) {
+        alert("eres menor de edad no es posible continuar"); 
+        return false; 
+    } 
     else if (edadUsuario >= 18 && edadUsuario < 25) 
-
-        {alert("usuario beneficiario por cotizante");} 
-
+        {alert("usuario beneficiario por cotizante");
+        return false;
+    } 
     else if (edadUsuario >= 60) 
-
-        {alert("solo se calculara el pago de la pension");} 
-        
-    else 
-        {salarioCalculo(); }
+        {alert("solo se calculara el pago de la pension");
+        return true; 
+    } 
+    
+    return true; 
 }
 
 // FUNCIONES UTILITARIAS//
@@ -107,7 +106,9 @@ formDatosGenerales.addEventListener("submit", function(evento) {
     totalHorasExtras = parseFloat(inputHorasExtras.value) || 0;
     nivelRiesgo = selectNivelRiesgo.value;
 
-    validar(edad);
+   if (validar(edad)) {
+        salarioCalculo();
+    }
 });
 
 function salarioCalculo() {
